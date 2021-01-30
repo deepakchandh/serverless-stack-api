@@ -19,17 +19,17 @@ provider:
     tableName: notes
 
 
-iamRoleStatements:
-  - Effect: Allow
-    Action: 
-      - dynamodb:Scan
-      - dynamodb:Query
-      - dynamodb:GetItem
-      - dynamodb:PutItem
-      - dynamodb:UpdateItem
-      - dynamodb:DeleteItem
-      - dynamodb:DescribeTable
-    Resource: "arn:aws:dynamodb:us-east-1:*:*"
+  iamRoleStatements:
+    - Effect: Allow
+      Action: 
+        - dynamodb:Scan
+        - dynamodb:Query
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - dynamodb:DescribeTable
+      Resource: "arn:aws:dynamodb:us-east-1:*:*"
 
 functions: 
   create:
@@ -50,19 +50,19 @@ functions:
     handler: list.main
     events:
       - http:
-        path: notes
-        method: get
+          path: notes
+          method: get
   
   update:
     handler: update.main
     events:
       - http:
-        path: notes/{id}
-        method: put
+          path: notes/{id}
+          method: put
 
   delete:
     handler: delete.main
     events:
       - http:
-        path: notes/{id}
-        method: delete
+          path: notes/{id}
+          method: delete
