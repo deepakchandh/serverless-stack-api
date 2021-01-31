@@ -6,7 +6,7 @@ export const main = handler(async(event, context) => {
         TableName: process.env.tableName,
         KeyConditionExpression: "userId = :userId",
         ExpressionAttributeValues: {
-            ":userId":"123",
+            ":userId": event.requestContext.identity.cognitoIdentityId,
         },
     };
     const result = await dynamodb.query(params);
