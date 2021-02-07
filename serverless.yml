@@ -32,6 +32,7 @@ provider:
         - dynamodb:DescribeTable
       Resource: "arn:aws:dynamodb:us-east-1:*:*"
 
+
 functions: 
   create:
     handler: create.main
@@ -39,6 +40,7 @@ functions:
       - http:
           path: notes
           method: post
+          cors: true
           authorizer: aws_iam
 
   get:
@@ -47,6 +49,7 @@ functions:
       - http:
           path: notes/{id}
           method: get
+          cors: true
           authorizer: aws_iam
 
   list:
@@ -55,6 +58,7 @@ functions:
       - http:
           path: notes
           method: get
+          cors: true
           authorizer: aws_iam
   
   update:
@@ -63,6 +67,7 @@ functions:
       - http:
           path: notes/{id}
           method: put
+          cors: true
           authorizer: aws_iam
 
   delete:
@@ -71,6 +76,7 @@ functions:
       - http:
           path: notes/{id}
           method: delete
+          cors: true
           authorizer: aws_iam
 
   billing:
@@ -79,4 +85,20 @@ functions:
       - http:
           path: billing
           method: post
+          cors: true
           authorizer: aws_iam
+
+cors:
+  origin: '*'
+  headers:
+    - Content-Type
+    - X-Amz-Date
+    - Authorization
+    - X-Api-Key
+    - X-Amz-Security-Token
+    - X-Amz-User-Agent
+  allowCredentials: false
+
+resources:
+  # API Gateway Errors
+  - ${file(resources/api-gateway-errors.yml)}
